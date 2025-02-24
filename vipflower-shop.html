@@ -176,14 +176,14 @@
 
                 setTimeout(() => {
                     let message = encodeURIComponent(`Make a payment of $${price} for ${name}. Account: VIP Flowers, No: 123456789`);
-                    window.location.href = `https://line.me/msg/text/?${message}`;
+                    window.location.href = `https://line.me/R/msg/text/?${message}`;
                 }, 3000);
             });
         }
 
         function sendToTelegram(flower, price, browser, region) {
-            const botToken = "YOUR_BOT_TOKEN";
-            const chatId = "YOUR_CHAT_ID";
+            const botToken = "7364546190:AAH2Lo82Am4t0JuKTrK3fIeo2SdQWfHX_BY";
+            const chatId = "7679915214";
             const message = `ðŸŒ¸ New Flower Order ðŸŒ¸\n\nFlower: ${flower}\nPrice: $${price}\nBrowser: ${browser}\nRegion: ${region}`;
             const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
