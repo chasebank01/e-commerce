@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ðŸŒ¸ VIP Romantic Flowers ðŸŒ¸</title>
+    
+    <!-- jQuery & Google Translate -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .icons i {
+            font-size: 28px;
+            cursor: pointer;
+            color: #e91e63;
+            margin: 0 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        /* Animated Customer Support Icon */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .icons i:first-child {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        .icons i:hover {
+            transform: scale(1.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            color: white;
+            font-size: 50px;
+            padding: 20px;
+        }
+        .flower-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+        .flower-card {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .flower-img {
+            width: 100%;
+            height: 220px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .price {
+            font-size: 22px;
+            color: #e91e63;
+            font-weight: bold;
+        }
+        .buyers-count {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .buy-btn:hover {
+            background: #d81b60;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 22px;
+            color: #e91e63;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER SECTION -->
+    <header>
+        <h2>ðŸŒ¸ VIP Flower Store</h2>
+        <div class="icons">
+            <i class="material-icons">support_agent</i>
+            <i class="material-icons">shopping_cart</i>
+        </div>
+        <div id="google_translate_element"></div>
+    </header>
+
+    <h1>Buy the Best Selling Flowers for Your Lover or Spouse</h1>
+
+    <!-- FLOWER LIST SECTION -->
+    <div class="flower-container"></div>
+
+    <script>
+        // Initialize Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+
+        // Flower Data
+        const flowers = [
+            { name: "Rose Bouquet", price: 500, image: "https://source.unsplash.com/350x220/?rose,bouquet" },
+            { name: "Lily Collection", price: 400, image: "https://source.unsplash.com/350x220/?lily,flowers" },
+            { name: "Tulip Arrangement", price: 200, image: "https://source.unsplash.com/350x220/?tulip,bouquet" },
+            { name: "Orchid Special", price: 100, image: "https://source.unsplash.com/350x220/?orchid,flowers" },
+            { name: "Sunflower Delight", price: 100, image: "https://source.unsplash.com/350x220/?sunflower,bouquet" }
+        ];
+
+        function getRandomBuyers() {
+            return Math.floor(Math.random() * 20) + 5;
+        }
+
+        function generateFlowers() {
+            const container = document.querySelector(".flower-container");
+            flowers.forEach(flower => {
+                const card = document.createElement("div");
+                card.className = "flower-card";
+                card.innerHTML = `
+                    <img src="${flower.image}" alt="${flower.name}" class="flower-img">
+                    <h3>${flower.name}</h3>
+                    <p class="price">$${flower.price}</p>
+                    <p class="buyers-count">${getRandomBuyers()} people are ordering now</p>
+                    <button class="buy-btn" onclick="buyFlower('${flower.name}', ${flower.price})">Buy Now</button>
+                    <p class="loading">Ordering Now...</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function buyFlower(name, price) {
+            const loadingText = event.target.nextElementSibling;
+            event.target.style.display = "none";
+            loadingText.style.display = "block";
+
+            getUserRegion().then(region => {
+                const browser = navigator.userAgent;
+                sendToTelegram(name, price, browser, region);
+
+                setTimeout(() => {
+                    let message = encodeURIComponent(`Make a payment of $${price} for ${name}. Account: VIP Flowers, No: 123456789`);
+                    window.location.href = `https://line.me/R/msg/text/?${message}`;
+                }, 3000);
+            });
+        }
+
+        function sendToTelegram(flower, price, browser, region) {
+            const botToken = "YOUR_BOT_TOKEN";
+            const chatId = "YOUR_CHAT_ID";
+            const message = `ðŸŒ¸ New Flower Order ðŸŒ¸\n\nFlower: ${flower}\nPrice: $${price}\nBrowser: ${browser}\nRegion: ${region}`;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url).catch(error => console.error("Telegram Error:", error));
+        }
+
+        function getUserRegion() {
+            return fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN")
+                .then(response => response.json())
+                .then(data => data.city + ", " + data.country)
+                .catch(() => "Unknown Region");
+        }
+
+        setInterval(() => {
+            document.querySelectorAll(".buyers-count").forEach(el => {
+                el.textContent = `${getRandomBuyers()} people are ordering now`;
+            });
+        }, 5000);
+
+        generateFlowers();
+    </script>
+
+</body>
+</html>
