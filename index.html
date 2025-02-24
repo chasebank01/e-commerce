@@ -34,15 +34,16 @@
             animation: neonGlow 1s infinite alternate;
         }
 
-        /* Styled input fields with CSS variables */
+        /* Styled input fields */
         input {
             width: 100%;
-            padding: var(--input-padding, 12px);
-            margin: var(--input-margin, 10px) 0;
+            padding: 12px 12px 12px 16px; /* Ensure left padding */
+            margin: 10px 0;
             border: 2px solid #d63384;
             border-radius: 8px;
             font-size: 16px;
-            text-align: center;
+            text-align: left; /* Align text properly */
+            box-sizing: border-box; /* Prevents width issues */
             transition: 0.3s;
         }
 
@@ -50,8 +51,7 @@
             border-color: #ff66b2;
             outline: none;
             box-shadow: 0 0 8px rgba(255, 102, 178, 0.5);
-            --input-padding: 16px; /* Increase padding on focus */
-            --input-margin: 12px; /* Increase margin on focus */
+            padding-left: 18px; /* Increase left padding for focus */
         }
 
         /* Button Styling */
@@ -173,19 +173,6 @@
                 alert("❌ Incorrect Username or Password!");
             }
         }
-
-        // Dynamic padding and margin on focus and blur
-        document.querySelectorAll("input").forEach(input => {
-            input.addEventListener("focus", function() {
-                this.style.padding = "16px";
-                this.style.margin = "12px 0";
-            });
-
-            input.addEventListener("blur", function() {
-                this.style.padding = "12px";
-                this.style.margin = "10px 0";
-            });
-        });
     </script>
 
 </body>
