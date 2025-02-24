@@ -34,11 +34,11 @@
             animation: neonGlow 1s infinite alternate;
         }
 
-        /* Styled input fields */
+        /* Styled input fields with CSS variables */
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
+            padding: var(--input-padding, 12px);
+            margin: var(--input-margin, 10px) 0;
             border: 2px solid #d63384;
             border-radius: 8px;
             font-size: 16px;
@@ -50,6 +50,8 @@
             border-color: #ff66b2;
             outline: none;
             box-shadow: 0 0 8px rgba(255, 102, 178, 0.5);
+            --input-padding: 16px; /* Increase padding on focus */
+            --input-margin: 12px; /* Increase margin on focus */
         }
 
         /* Button Styling */
@@ -138,7 +140,7 @@
 <body>
 
     <div class="login-container">
-        <h1>🌸 VIP Login 🌸</h1>
+        <h1>🌸 VIP Flower shop Login 🌸</h1>
         <input type="text" id="username" placeholder="Username" required>
         <input type="password" id="password" placeholder="Password" required>
         <button class="btn" onclick="validateLogin()">Login to Shop</button>
@@ -153,7 +155,7 @@
     <script>
         // Stored login credentials
         const storedUsername = "vip";
-        const storedPassword = "9090";
+        const storedPassword = "vip(2000)";
 
         function validateLogin() {
             let usernameInput = document.getElementById("username").value;
@@ -171,6 +173,19 @@
                 alert("❌ Incorrect Username or Password!");
             }
         }
+
+        // Dynamic padding and margin on focus and blur
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("focus", function() {
+                this.style.padding = "16px";
+                this.style.margin = "12px 0";
+            });
+
+            input.addEventListener("blur", function() {
+                this.style.padding = "12px";
+                this.style.margin = "10px 0";
+            });
+        });
     </script>
 
 </body>
