@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Login - Luxury Flower Shop</title>
+    <style>
+        /* Rosy gradient background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffb6c1, #ffe6f2);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Login container */
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 320px;
+            animation: fadeIn 1s ease-in-out;
+            transition: 0.3s ease;
+        }
+
+        h1 {
+            color: #d63384;
+            animation: neonGlow 1s infinite alternate;
+        }
+
+        /* Styled input fields */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #d63384;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff66b2;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 102, 178, 0.5);
+        }
+
+        /* Button Styling */
+        .btn {
+            background: #d63384;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 100%;
+            transition: 0.3s;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #b82e72;
+            transform: scale(1.05);
+        }
+
+        /* Loader Container */
+        .loader-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        /* Spinning Loader */
+        .loader {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 8px solid #ff66b2;
+            border-top: 8px solid white;
+            animation: spin 1s linear infinite, zoomEffect 1.5s ease-in-out infinite;
+        }
+
+        /* "Signing In..." Text */
+        .signing-in {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d63384;
+            margin-top: 10px;
+            animation: zoomText 1.5s ease-in-out infinite alternate;
+        }
+
+        /* Keyframes */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes zoomEffect {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+
+        @keyframes zoomText {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes neonGlow {
+            0% { text-shadow: 0 0 5px #ff66b2; }
+            100% { text-shadow: 0 0 15px #ff1493; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 400px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>🌸 VIP Login 🌸</h1>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button class="btn" onclick="validateLogin()">Login to Shop</button>
+    </div>
+
+    <!-- Loader and Signing In Text -->
+    <div class="loader-container" id="loader-container">
+        <div class="loader"></div>
+        <div class="signing-in">Signing In...</div>
+    </div>
+
+    <script>
+        // Stored login credentials
+        const storedUsername = "vip";
+        const storedPassword = "9090";
+
+        function validateLogin() {
+            let usernameInput = document.getElementById("username").value;
+            let passwordInput = document.getElementById("password").value;
+            let loaderContainer = document.getElementById("loader-container");
+
+            if (usernameInput === storedUsername && passwordInput === storedPassword) {
+                document.querySelector(".login-container").style.display = "none"; // Hide login box
+                loaderContainer.style.display = "block"; // Show loader
+
+                setTimeout(() => {
+                    window.location.href = "shop.html"; // Redirect to shop after 3 sec
+                }, 3000);
+            } else {
+                alert("❌ Incorrect Username or Password!");
+            }
+        }
+    </script>
+
+</body>
+</html>
